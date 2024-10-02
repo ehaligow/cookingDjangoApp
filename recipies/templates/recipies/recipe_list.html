@@ -5,4 +5,6 @@
 {% empty %}
     <li>No recipies yet.</li>
 {% endfor %}
+<br>
+<a href="{% url 'recipies:create' %}"><button>Create</button></a>
 </ul>
