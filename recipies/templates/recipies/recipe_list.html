@@ -1,0 +1,10 @@
+<h1>Recipies</h1>
+<ul>
+{% for recipe in object_list %}
+<li><a href="{% url 'recipies:detail' recipe.id %}">{{ recipe.title }}</a></li>
+{% empty %}
+    <li>No recipies yet.</li>
+{% endfor %}
+<br>
+<a href="{% url 'recipies:create' %}"><button>Create</button></a>
+</ul>
