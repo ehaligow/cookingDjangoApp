@@ -1,6 +1,8 @@
 <form method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
-  <input type="submit" value="Save"> 
-  <input type="button" value="Reset" id="resetBtn" onClick="this.form.reset()" /> 
+    Title:  {{ form.title }} <br>
+    Ingredients: {{ form.ingredients }} <button type="button" onclick="location.href='{% url 'ingredients:add' %}'" > Add ingredient</button> <br>
+    Instruction:  {{ form.instruction }} <br>
+  <input type="submit" value="Save">
+  <input type="button" value="Reset" id="resetBtn" onClick="this.form.reset()" />
 </form>
