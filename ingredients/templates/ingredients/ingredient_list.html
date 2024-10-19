@@ -1,0 +1,9 @@
+<ul>
+    {% for ingredient in object_list %}
+    {{ ingredient.name }} <br>
+    {% empty %}
+    <li>No ingredients yet.</li>
+    {% endfor %}<br>
+    <a href="{% url 'ingredients:add' %}"><button>Add Ingredient</button></a>
+
+</ul>
