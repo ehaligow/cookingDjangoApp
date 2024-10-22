@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "recipies.apps.RecipiesConfig",
     "ingredients.apps.IngredientsConfig",
+    "shoppingList.apps.ShoppinglistConfig",
 ]
 
 MIDDLEWARE = [
