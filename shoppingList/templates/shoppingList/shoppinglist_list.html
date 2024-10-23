@@ -1,4 +1,4 @@
 <h1>Shopping lists<br></h1>
     {% for list in object_list %}
-        {{ list.name }}
+        <a href="{% url 'detail' list.id %}"> {{ list.name }} </a>
     {% endfor %}
