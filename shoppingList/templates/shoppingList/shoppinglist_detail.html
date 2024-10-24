@@ -2,4 +2,4 @@
 {% for ingredient in shoppinglist.ingredients.all %} 
 <br>{{ ingredient.name }}
 {% endfor %}<br>
-<a href = "{% url 'downloadList' shoppinglist.id %}"> Download </a>
+<a href = "{% url 'shoppingList:downloadList' shoppinglist.id %}"> Download </a>

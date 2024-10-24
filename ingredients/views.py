@@ -23,4 +23,4 @@ def addToShoppingList(request):
         shopping_list.save()
         for ingredient in selected_ingredients:
             shopping_list.ingredients.add(ingredient)
-    return HttpResponseRedirect(reverse_lazy("ingredients:list"))
+    return HttpResponseRedirect(reverse_lazy("shoppingList:list"))
