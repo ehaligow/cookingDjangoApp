@@ -1,9 +1,12 @@
-<ul>
+<form action="{% url 'ingredients:addToShoppingList' %}" method="post">
+    {% csrf_token %}
+    <ul>
     {% for ingredient in object_list %}
-    {{ ingredient.name }} <br>
+    <input type="checkbox" name ="ingredient" value="{{ ingredient.id }}"> {{ ingredient.name }} <br>
     {% empty %}
     <li>No ingredients yet.</li>
     {% endfor %}<br>
-    <a href="{% url 'ingredients:add' %}"><button>Add Ingredient</button></a>
-
+    <button type="button" onclick="location.href='{% url 'ingredients:add' %}'" >Add missing ingredient</button>
+    <button type="submit" value="addToShoppingList">Add to shopping list</button>
 </ul>
+</form>

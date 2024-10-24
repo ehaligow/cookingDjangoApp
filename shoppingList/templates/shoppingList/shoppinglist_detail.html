@@ -1,0 +1,5 @@
+<h1>{{ shoppinglist.name }}</h1>
+{% for ingredient in shoppinglist.ingredients.all %} 
+<br>{{ ingredient.name }}
+{% endfor %}<br>
+<a href = "{% url 'shoppingList:downloadList' shoppinglist.id %}"> Download </a>
