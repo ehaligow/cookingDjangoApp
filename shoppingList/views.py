@@ -2,11 +2,18 @@ import json
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import generic
+from django.urls import reverse_lazy
 from .models import ShoppingList
+from .forms import ShoppingListForm
 # Create your views here.
 
 class ShoppingListView(generic.ListView):
     model = ShoppingList
+
+class ShoppingListCreate(generic.CreateView):
+    model=ShoppingList
+    form_class=ShoppingListForm
+    success_url = reverse_lazy("shoppingList:list")
 
 class ShoppingListDetail(generic.DetailView):
     model = ShoppingList
