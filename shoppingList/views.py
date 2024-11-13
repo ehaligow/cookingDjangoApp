@@ -1,6 +1,7 @@
 import json
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
 from .models import ShoppingList
 # Create your views here.
@@ -11,6 +12,11 @@ class ShoppingListView(generic.ListView):
 class ShoppingListDetail(generic.DetailView):
     model = ShoppingList
     fields = ["name", "ingredients"]
+
+def deleteList(req, shoppinglist_id):
+    list = get_object_or_404(ShoppingList, pk=shoppinglist_id)
+    list.delete()
+    return HttpResponseRedirect(reverse_lazy("shoppingList:list"))
 
 def downloadList(reuest, shoppinglist_id):
     shopping_list = ShoppingList.objects.get(id=shoppinglist_id)
