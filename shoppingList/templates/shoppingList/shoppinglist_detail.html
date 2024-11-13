@@ -2,5 +2,5 @@
 {% for ingredient in shoppinglist.ingredients.all %} 
 <br>{{ ingredient.name }}
 {% endfor %}<br>
-<a href = "{% url 'shoppingList:downloadList' shoppinglist.id %}"> Download </a> <br>
+<button type="button" onclick="location.href='{% url 'shoppingList:downloadList' shoppinglist.id %}'"> Download </button>
 <button type="button" onclick="location.href='{% url 'shoppingList:delete' shoppinglist.id %}'">Delete List</button>
