@@ -1,4 +1,4 @@
-<form action="{% url 'ingredients:addToShoppingList' %}" method="post">
+<form action="{% url 'shoppingList:createList' %}" method="post">
     {% csrf_token %}
     <ul>
     {% for ingredient in object_list %}

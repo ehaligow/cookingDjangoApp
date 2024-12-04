@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import generic
 from django.urls import reverse_lazy
-from .models import ShoppingList
+from .models import ShoppingList, Ingredient
 from .forms import ShoppingListForm
 # Create your views here.
 
@@ -14,6 +14,15 @@ class ShoppingListCreate(generic.CreateView):
     model=ShoppingList
     form_class=ShoppingListForm
     success_url = reverse_lazy("shoppingList:list")
+
+def createList(request):
+    selected_ingredients = request.POST.getlist("ingredient")
+    print("selected_ingredients", selected_ingredients)
+    if selected_ingredients:
+        form = ShoppingListForm(initial={
+            'ingredients':Ingredient.objects.filter(id__in=selected_ingredients)
+        })
+    return render(request, "shoppinglist_form.html", {'form': form})
 
 class ShoppingListDetail(generic.DetailView):
     model = ShoppingList

@@ -1,5 +1,12 @@
 <form method="POST">
 {% csrf_token %}
 {{ form.as_p }}
+{{ form.title }}
+{{ selected_ingredients }}
 <input type="submit" value="Save">
+{{form}}
+<p>
+    <label for="id_is_completed">Is Completed:</label>
+    <input type="checkbox" name="is_completed" id="id_is_completed" checked>
+</p>
 </form>
