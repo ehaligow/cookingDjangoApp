@@ -1,12 +1,44 @@
 import json
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import generic
-from .models import ShoppingList
+from django.urls import reverse_lazy
+from .models import ShoppingList, Ingredient
+from .forms import ShoppingListForm
+from django.http import HttpResponseRedirect
 # Create your views here.
 
 class ShoppingListView(generic.ListView):
     model = ShoppingList
+
+class ShoppingListCreate(generic.CreateView):
+    model=ShoppingList
+    form_class=ShoppingListForm
+    success_url = reverse_lazy("shoppingList:list")
+
+def createList(request):
+    if request.method == "POST":
+        form = ShoppingListForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse_lazy("shoppingList:list"))
+    
+    elif request.method == 'GET':
+        selected_ingredients = request.session.get('selected_ingredients', [])
+        form = ShoppingListForm()
+        if selected_ingredients:
+            form = ShoppingListForm(initial={
+                      'ingredients':Ingredient.objects.filter(id__in=selected_ingredients)
+                  })
+    request.session.clear()
+    return render(request, "shoppinglist_form.html", {'form': form})
+
+
+def createListWithIngredients(request):
+    if request.method == "POST":
+        selected_ingredients = request.POST.getlist("ingredient")
+        request.session['selected_ingredients'] = selected_ingredients
+        return redirect('shoppingList:createList')
 
 class ShoppingListDetail(generic.DetailView):
     model = ShoppingList
