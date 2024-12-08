@@ -28,4 +28,17 @@ class ShoppingListTests(TestCase):
         shoppingList = ShoppingList.objects.get(name = "Lista zakupow")
         ingredients = shoppingList.ingredients.all()
         self.assertEqual(len(ingredients), 2)
+
+    def test_invalid_create_shopping_list(self):
+        form_data = {
+            "name" : "Lista zakupow",
+            "ingredients": [] 
+        }
         
+        self.client.post(self.url, data = form_data)
+        self.assertFalse(ShoppingList.objects.filter(name='Lista zakupow').exists())
+
+    def test_get_shopping_list(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "shoppinglist_form.html")   
