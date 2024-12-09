@@ -41,4 +41,15 @@ class ShoppingListTests(TestCase):
     def test_get_shopping_list(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "shoppinglist_form.html")   
+        self.assertTemplateUsed(response, "shoppinglist_form.html")
+
+    def test_get_shopping_list_with_selected_ingredients(self):
+        session = self.client.session
+        session['selected_ingredients'] = [self.ingredient1.id]
+        session.save()
+
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "shoppinglist_form.html")
+        self.assertEqual(response.context['form'].initial['ingredients'].all().first(),
+                            self.ingredient1)    
