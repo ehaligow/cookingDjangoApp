@@ -43,7 +43,7 @@ class ShoppingListDetail(generic.DetailView):
     fields = ["name", "ingredients"]
 
 
-def deleteList(req, shoppinglist_id):
+def delete_list(req, shoppinglist_id):
     list = get_object_or_404(ShoppingList, pk=shoppinglist_id)
     list.delete()
     return HttpResponseRedirect(reverse_lazy("shoppingList:list"))
