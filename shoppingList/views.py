@@ -1,8 +1,8 @@
 import json
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.views import generic
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
+from django.http import HttpResponse, HttpResponseRedirect
+from django.views import generic
 from django.http import HttpResponseRedirect
 from .models import ShoppingList, Ingredient
 from .forms import ShoppingListForm
@@ -41,6 +41,13 @@ def add_ingredients_to_session(request):
 class ShoppingListDetail(generic.DetailView):
     model = ShoppingList
     fields = ["name", "ingredients"]
+
+
+def delete_list(req, shoppinglist_id):
+    list = get_object_or_404(ShoppingList, pk=shoppinglist_id)
+    list.delete()
+    return HttpResponseRedirect(reverse_lazy("shoppingList:list"))
+
 
 def download_list(request, shoppinglist_id):
     shopping_list = ShoppingList.objects.get(id=shoppinglist_id)
