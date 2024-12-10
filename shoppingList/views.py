@@ -27,7 +27,7 @@ def create_list(request):
     form = ShoppingListForm(initial={
                       'ingredients':Ingredient.objects.filter(id__in=selected_ingredients)
     })
-    
+
     request.session.pop('selected_ingredients', None)
     return render(request, "shoppinglist_form.html", {'form': form})
 
@@ -44,8 +44,8 @@ class ShoppingListDetail(generic.DetailView):
 
 
 def delete_list(req, shoppinglist_id):
-    list = get_object_or_404(ShoppingList, pk=shoppinglist_id)
-    list.delete()
+    list_to_delete = get_object_or_404(ShoppingList, pk=shoppinglist_id)
+    list_to_delete.delete()
     return HttpResponseRedirect(reverse_lazy("shoppingList:list"))
 
 
