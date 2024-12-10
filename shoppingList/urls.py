@@ -8,5 +8,6 @@ urlpatterns = [
          name='createListWithIngredients'),
     path("createList", views.create_list, name='createList'),
     path("<int:pk>/", views.ShoppingListDetail.as_view(), name="detail"),
+    path("<int:shoppinglist_id>/delete", views.delete_list, name="delete"),
     path("<int:shoppinglist_id>/downloadList", views.download_list, name="downloadList"),
 ]
