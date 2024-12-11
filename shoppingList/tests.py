@@ -1,7 +1,9 @@
+from unittest.mock import patch, MagicMock
 from django.test import TestCase
 from django.urls import reverse_lazy
 from ingredients.models import Ingredient, Category
 from .models import ShoppingList
+from . import views
 
 
 class ShoppingListTests(TestCase):
@@ -53,3 +55,28 @@ class ShoppingListTests(TestCase):
         self.assertTemplateUsed(response, "shoppinglist_form.html")
         self.assertEqual(response.context['form'].initial['ingredients'].all().first(),
                             self.ingredient1)
+
+
+class DownloadListUnitTest(TestCase):
+    @patch('shoppingList.models.ShoppingList.objects.get')
+    def test_download_list_success(self, mock_get):
+        mock_category = MagicMock()
+        mock_category.name = "Pieczywo"
+        
+        mock_ingredient = MagicMock()
+        mock_ingredient.name = "Chleb"
+        mock_ingredient.category = mock_category
+        
+        mock_shopping_list = MagicMock()
+        mock_shopping_list.name = "Lista zakupow"
+        mock_shopping_list.ingredients.all.return_value = [mock_ingredient]
+        
+        mock_get.return_value = mock_shopping_list
+
+        request = MagicMock()
+        response = views.download_list(request, 1)
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("List name: ", response.content.decode())
+        self.assertIn("Ingredients: ", response.content.decode())
+        self.assertIn("Chleb", response.content.decode())
