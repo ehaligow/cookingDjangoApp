@@ -11,11 +11,6 @@ from .forms import ShoppingListForm
 class ShoppingListView(generic.ListView):
     model = ShoppingList
 
-class ShoppingListCreate(generic.CreateView):
-    model=ShoppingList
-    form_class=ShoppingListForm
-    success_url = reverse_lazy("shoppingList:list")
-
 def create_list(request):
     if request.method == "POST":
         form = ShoppingListForm(request.POST)

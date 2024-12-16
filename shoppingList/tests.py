@@ -29,14 +29,18 @@ class ShoppingListTests(TestCase):
         ingredients = shopping_list.ingredients.all()
         self.assertEqual(len(ingredients), 2)
 
-    def test_invalid_create_shopping_list(self):
+    def create_shopping_list_with_name_only(self):
         form_data = {
-            "name" : "Lista zakupow",
-            "ingredients": [] 
+            "name": "Lista zakupow",
+            "ingredients": []
         }
 
-        self.client.post(self.url, data = form_data)
-        self.assertFalse(ShoppingList.objects.filter(name='Lista zakupow').exists())
+        response = self.client.post(self.url, data=form_data)
+        self.assertRedirects(response, reverse_lazy("shoppingList:list"))
+        self.assertTrue(ShoppingList.objects.get(
+            name='Lista zakupow').exists())
+        self.assertFalse(ShoppingList.objects.get(
+            name='Lista zakupow').ingredients.exists())
 
     def test_get_shopping_list(self):
         response = self.client.get(self.url)
