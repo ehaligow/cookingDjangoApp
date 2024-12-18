@@ -1,4 +1,4 @@
-name: Django CI
+name: Django CI with Docker Compose
 
 on:
   push:
@@ -17,18 +17,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
+    - name: Run docker-compose
+      uses: hoverkraft-tech/compose-action@v2.0.1
       with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install Dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-    - name: Make migrations
-      run: |
-        python manage.py makemigrations recipies
-        python manage.py migrate
+        compose-file: "./docker-compose.yml"
     - name: Run Tests
       run: |
-        python manage.py test
+        docker exec -it cookingApp_web sh -c "python manage.py test"
