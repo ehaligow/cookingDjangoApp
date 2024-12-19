@@ -23,4 +23,4 @@ jobs:
         compose-file: "./docker-compose.yml"
     - name: Run Tests
       run: |
-        docker exec -it cookingApp_web sh -c "python manage.py test"
+        docker compose exec cookingApp_web python manage.py test
