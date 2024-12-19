@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "recipies.apps.RecipiesConfig",
     "ingredients.apps.IngredientsConfig",
     "shoppingList.apps.ShoppinglistConfig",
+    "home.apps.HomeConfig"
 ]
 
 MIDDLEWARE = [
