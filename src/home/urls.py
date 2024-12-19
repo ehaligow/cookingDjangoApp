@@ -23,5 +23,5 @@ urlpatterns = [
     path("", views.home, name="home"),
     path("ingredients/",include("ingredients.urls")),
     path("shoppingList/", include("shoppingList.urls")),
-    path("recipies/", include("shoppingList.urls")),
+    path("recipies/", include("recipies.urls")),
 ]
