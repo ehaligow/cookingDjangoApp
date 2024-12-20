@@ -1,6 +1,9 @@
 <form action= "{% url 'recipies:delete' recipe.id %}" method="POST">
 {% csrf_token %}
 <h1>Recipe: {{ recipe.title }}</h1>
-<h2>Ingedients: {{ recipe.ingredients.all|join:", " }}</h2>
+<h2>Ingredients: {{ recipe.ingredients.all|join:", " }}</h2>
+<h2>Instruction: </h2>
+<h3>{{ recipe.instruction}}</h3>
+<br>
 <button type="submit" name="delete">Delete</button></a>
 </form>
