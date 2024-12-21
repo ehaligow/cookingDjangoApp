@@ -40,8 +40,7 @@ def get_recipe_from_API(req):
         response = requests.get(
             "https://www.themealdb.com/api/json/v1/1/random.php")
         data = response.json()['meals'][0]
-    except Exception as e:
-        #TODO: more specidif errors
+    except requests.exceptions.RequestException as e:
         print(f"Error during get {e}.")
         return redirect("recipies:list")
     
