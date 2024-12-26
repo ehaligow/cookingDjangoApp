@@ -40,20 +40,20 @@ def get_recipe_from_API(req):
         response = requests.get(
             "https://www.themealdb.com/api/json/v1/1/random.php")
         data = response.json()['meals'][0]
-    except requests.exceptions.RequestException as e:
+    except (requests.exceptions.RequestException, KeyError, IndexError) as e:
         print(f"Error during get {e}.")
         return redirect("recipies:list")
-    
+
     title = data['strMeal']
     instructions = data['strInstructions']
-    category = Category.objects.get_or_create(name=data['strCategory'])
-     
+    category, _ = Category.objects.get_or_create(name=data['strCategory'])
+
     all_ingredients = [k for k in data.keys() if k.startswith('strIngredient')]
     ingredients_names = [data[ing] for ing in all_ingredients if data[ing]]
     ingredients = []
     for name in ingredients_names:
-        #TODO: bulk_create or get_or_create?
-        ingredient = Ingredient.objects.get_or_create(name=name)
+        # TODO: bulk_create or get_or_create?
+        ingredient, _= Ingredient.objects.get_or_create(name=name)
         ingredients.append(ingredient.id)
 
     recipe = Recipe.objects.create(
