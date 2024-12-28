@@ -8,3 +8,7 @@ services:
       sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./src:/opt/src
+    deploy:
+      resources:
+        limits:
+          memory: 512M
