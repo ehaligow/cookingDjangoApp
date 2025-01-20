@@ -1,7 +1,7 @@
 from unittest.mock import patch, MagicMock
 from django.test import TestCase
 from django.urls import reverse_lazy
-from ingredients.models import Ingredient, Category
+from ingredients.models import Ingredient
 from .models import ShoppingList
 from . import views
 
@@ -9,9 +9,8 @@ from . import views
 class ShoppingListTests(TestCase):
 
     def setUp(self):
-        self.category = Category.objects.create(name = "Nabiał")
-        self.ingredient1 = Ingredient.objects.create(name = "Maslo", category = self.category)
-        self.ingredient2 = Ingredient.objects.create(name = "Smietana", category = self.category)
+        self.ingredient1 = Ingredient.objects.create(name = "Maslo")
+        self.ingredient2 = Ingredient.objects.create(name = "Smietana")
         self.url =  reverse_lazy("shoppingList:createList")
 
     def test_create_shopping_list(self):
