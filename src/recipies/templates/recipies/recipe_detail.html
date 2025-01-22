@@ -1,3 +1,4 @@
+<a href="{% url 'recipies:list' %}"><button>Go back to recipies list</button></a>
 <form action= "{% url 'recipies:delete' recipe.id %}" method="POST">
 {% csrf_token %}
 <h1>Recipe: {{ recipe.title }}</h1>
