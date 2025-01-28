@@ -24,7 +24,7 @@ def create_list(request):
     })
 
     request.session.pop('selected_ingredients', None)
-    return render(request, "shoppinglist_form.html", {'form': form})
+    return render(request, "shoppingList/shoppinglist_form.html", {'form': form})
 
 
 def add_ingredients_to_session(request):
